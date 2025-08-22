@@ -1,0 +1,383 @@
+{
+	"info": {
+		"_postman_id": "db5b87f6-a825-4a70-abb0-dece86f8e0fd",
+		"name": "05.My users api - with variables and chaining",
+		"description": "Built a custom mock Users API using Node.js, npm, JSON Server, and a local JSON file, supporting full CRUD operations.\n\n- **CRUD operations**: `GET`, `POST`, `PUT`, `DELETE`\n    \n- **Pre-request Scripts**: Set dynamic variables (e.g., timestamps, tokens, or user IDs)\n    \n- **Post-response Tests**:\n    \n    - Status code validation\n        \n    - Header validation\n        \n    - Response time check\n        \n    - Schema validation\n        \n- **Environment & Collection Variables**\n    \n- **Chained API Requests**: Responses from one request (e.g., user ID from POST) are passed to the next (e.g., for PUT or DELETE)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23846288",
+		"_collection_link": "https://speeding-escape-891515.postman.co/workspace/API-testing-with-Postman---Prac~1ee97430-877e-4c34-a2f4-cdba9b060fc6/collection/23846288-db5b87f6-a825-4a70-abb0-dece86f8e0fd?action=share&source=collection_link&creator=23846288"
+	},
+	"item": [
+		{
+			"name": "1.Get all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET /users - Status code should be 200.\", () => {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"pm.test(\"Response Time should be below 200ms.\", () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header should be application/json\", () => {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"let schema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"  \"type\": \"array\", // The response should be an array of user objects",
+							"  \"items\": {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"      \"id\": {",
+							"        \"type\": \"integer\"",
+							"      },",
+							"      \"name\": {",
+							"        \"type\": \"string\"",
+							"      },",
+							"      \"age\": {",
+							"        \"type\": \"integer\"",
+							"      },",
+							"      \"email\": {",
+							"        \"type\": \"string\"",
+							"      },",
+							"      \"is_active\": {",
+							"        \"type\": \"boolean\"",
+							"      },",
+							"      \"address\": {",
+							"        \"type\": \"object\",",
+							"        \"properties\": {",
+							"          \"street\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"city\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"zip\": {",
+							"            \"type\": \"string\"",
+							"          }",
+							"        },",
+							"        \"required\": [",
+							"          \"street\",",
+							"          \"city\",",
+							"          \"zip\"",
+							"        ]",
+							"      }",
+							"    },",
+							"    \"required\": [",
+							"      \"id\",",
+							"      \"name\",",
+							"      \"age\",",
+							"      \"email\",",
+							"      \"is_active\",",
+							"      \"address\"",
+							"    ]",
+							"  }",
+							"};",
+							"",
+							"pm.test(\"Schema is valid\", () => {",
+							"    pm.expect(jsonData).to.be.jsonSchema(schema);",
+							"});",
+							"",
+							"pm.test(\"Response body is an array.\", () => {",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"pm.test(\"Users list is not empty.\", () => {",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.Create a new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST /users - Status code should be 201.\", () => {",
+							"    pm.response.to.have.status(201);",
+							"    pm.response.to.have.status(\"Created\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header should be application/json\", () => {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");",
+							"});",
+							"",
+							"pm.test(\"Response time is under 1000ms\", () =>  {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"pm.test(\"Response body contains correct data\", () => {",
+							"    pm.expect(jsonData.name).to.eql(\"Carol Williams\");",
+							"    pm.expect(jsonData.email).to.eql(\"carol.williams@example.com\");",
+							"    pm.expect(jsonData.address.city).to.eql(\"Greenville\");",
+							"    pm.expect(jsonData.is_active).to.be.true;",
+							"});",
+							"",
+							"let schema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"name\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"age\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"email\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"is_active\": {",
+							"      \"type\": \"boolean\"",
+							"    },",
+							"    \"address\": {",
+							"      \"type\": \"object\",",
+							"      \"properties\": {",
+							"        \"street\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"city\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"zip\": {",
+							"          \"type\": \"string\"",
+							"        }",
+							"      },",
+							"      \"required\": [",
+							"        \"street\",",
+							"        \"city\",",
+							"        \"zip\"",
+							"      ]",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"id\",",
+							"    \"name\",",
+							"    \"age\",",
+							"    \"email\",",
+							"    \"is_active\",",
+							"    \"address\"",
+							"  ]",
+							"};",
+							"",
+							"pm.test(\"Schema is valid\", () => {",
+							"    pm.expect(jsonData).to.be.jsonSchema(schema);",
+							"});",
+							"",
+							"pm.environment.set(\"userId\", jsonData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 3,\r\n    \"name\": \"Carol Williams\",\r\n    \"age\": 42,\r\n    \"email\": \"carol.williams@example.com\",\r\n    \"is_active\": true,\r\n    \"address\": {\r\n        \"street\": \"789 Pine Rd\",\r\n        \"city\": \"Greenville\",\r\n        \"zip\": \"29607\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.Get a single user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let userId = pm.environment.get(\"userId\"); // Get the userId from the environment variables.",
+							"",
+							"pm.test(`GET /users/${userId} - Status code is 200`, function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response Time should be below 200ms.\", () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header should be application/json\", () => {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"let schema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"  \"type\": \"object\", // The response should be an array of user objects",
+							"  \"items\": {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"      \"id\": {",
+							"        \"type\": \"integer\"",
+							"      },",
+							"      \"name\": {",
+							"        \"type\": \"string\"",
+							"      },",
+							"      \"age\": {",
+							"        \"type\": \"integer\"",
+							"      },",
+							"      \"email\": {",
+							"        \"type\": \"string\"",
+							"      },",
+							"      \"is_active\": {",
+							"        \"type\": \"boolean\"",
+							"      },",
+							"      \"address\": {",
+							"        \"type\": \"object\",",
+							"        \"properties\": {",
+							"          \"street\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"city\": {",
+							"            \"type\": \"string\"",
+							"          },",
+							"          \"zip\": {",
+							"            \"type\": \"string\"",
+							"          }",
+							"        },",
+							"        \"required\": [",
+							"          \"street\",",
+							"          \"city\",",
+							"          \"zip\"",
+							"        ]",
+							"      }",
+							"    },",
+							"    \"required\": [",
+							"      \"id\",",
+							"      \"name\",",
+							"      \"age\",",
+							"      \"email\",",
+							"      \"is_active\",",
+							"      \"address\"",
+							"    ]",
+							"  }",
+							"};",
+							"",
+							"pm.test(\"Schema is valid\", () => {",
+							"    pm.expect(jsonData).to.be.jsonSchema(schema);",
+							"});",
+							"",
+							"pm.test(\"Name should be Carol Williams\", () => {",
+							"    pm.expect(jsonData.name).to.eql(\"Carol Williams\");",
+							"})",
+							"",
+							"pm.test(\"Id should be 3.\", () => {",
+							"    pm.expect(jsonData.id).to.eql(3);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/{{userId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.Delete the existing user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let userId = pm.environment.get(\"userId\");",
+							"",
+							"pm.test(`DELETE /users/${userId} - Status code should be 200.`, () => {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"pm.test(\"Response time should be below 200ms.\", () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header should be application/json\", () => {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");",
+							"});",
+							"",
+							"pm.environment.unset(\"userId\"); // Clear the userId environment variable after the test.",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/{{userId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

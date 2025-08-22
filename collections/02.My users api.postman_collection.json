@@ -1,0 +1,939 @@
+{
+	"info": {
+		"_postman_id": "2e8108dc-66e0-4226-96d4-724b40ddbefb",
+		"name": "02.My users api",
+		"description": "Create my own users API (node.js + npm, json server + json file) and Get single user, all users, create a new user, update a user, and delete the user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23846288",
+		"_collection_link": "https://speeding-escape-891515.postman.co/workspace/API-testing-with-Postman---Prac~1ee97430-877e-4c34-a2f4-cdba9b060fc6/collection/23846288-2e8108dc-66e0-4226-96d4-724b40ddbefb?action=share&source=collection_link&creator=23846288"
+	},
+	"item": [
+		{
+			"name": "1.Get a single user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "1.Get single user",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin, Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "-1"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "200"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"c8-VUQMfWJHESEcD3cAVuj5UllKhKQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jul 2025 03:45:49 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"name\": \"Bob Smith\",\n    \"age\": 35,\n    \"email\": \"bob.smith@example.com\",\n    \"is_active\": false,\n    \"address\": {\n        \"street\": \"456 Oak Ave\",\n        \"city\": \"Riverside\",\n        \"zip\": \"92501\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "2.Get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "2.Get all users before POST request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "tinyhttp"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, HEAD, PUT, PATCH, POST, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "content-type"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 26 Jul 2025 06:42:50 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Content-Length",
+							"value": "700"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Alice Johnson\",\n        \"age\": 28,\n        \"email\": \"alice.johnson@example.com\",\n        \"is_active\": true,\n        \"address\": {\n            \"street\": \"123 Maple St\",\n            \"city\": \"Springfield\",\n            \"zip\": \"62704\"\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Bob Smith\",\n        \"age\": 35,\n        \"email\": \"bob.smith@example.com\",\n        \"is_active\": false,\n        \"address\": {\n            \"street\": \"456 Oak Ave\",\n            \"city\": \"Riverside\",\n            \"zip\": \"92501\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Carol Williams\",\n        \"age\": 42,\n        \"email\": \"carol.williams@example.com\",\n        \"is_active\": true,\n        \"address\": {\n            \"street\": \"789 Pine Rd\",\n            \"city\": \"Greenville\",\n            \"zip\": \"29607\"\n        }\n    }\n]"
+				},
+				{
+					"name": "2.Get all users after POST request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "tinyhttp"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, HEAD, PUT, PATCH, POST, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "content-type"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 26 Jul 2025 11:58:51 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Content-Length",
+							"value": "927"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Alice Johnson\",\n        \"age\": 28,\n        \"email\": \"alice.johnson@example.com\",\n        \"is_active\": true,\n        \"address\": {\n            \"street\": \"123 Maple St\",\n            \"city\": \"Springfield\",\n            \"zip\": \"62704\"\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Bob Smith\",\n        \"age\": 35,\n        \"email\": \"bob.smith@example.com\",\n        \"is_active\": false,\n        \"address\": {\n            \"street\": \"456 Oak Ave\",\n            \"city\": \"Riverside\",\n            \"zip\": \"92501\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Carol Williams\",\n        \"age\": 42,\n        \"email\": \"carol.williams@example.com\",\n        \"is_active\": true,\n        \"address\": {\n            \"street\": \"789 Pine Rd\",\n            \"city\": \"Greenville\",\n            \"zip\": \"29607\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"name\": \"David Lee\",\n        \"age\": 30,\n        \"email\": \"david.lee@example.com\",\n        \"is_active\": true,\n        \"address\": {\n            \"street\": \"321 Birch Blvd\",\n            \"city\": \"Lakeside\",\n            \"zip\": \"90210\"\n        }\n    }\n]"
+				},
+				{
+					"name": "2.Get all users after PUT request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin, Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "-1"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "928"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3a0-9DC/p0GG4ssJMkB6qn8v/Ki8AC0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jul 2025 03:48:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Alice Johnson\",\n        \"age\": 28,\n        \"email\": \"alice.johnson@example.com\",\n        \"is_active\": true,\n        \"address\": {\n            \"street\": \"123 Maple St\",\n            \"city\": \"Springfield\",\n            \"zip\": \"62704\"\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Bob Smith\",\n        \"age\": 35,\n        \"email\": \"bob.smith@example.com\",\n        \"is_active\": false,\n        \"address\": {\n            \"street\": \"456 Oak Ave\",\n            \"city\": \"Riverside\",\n            \"zip\": \"92501\"\n        }\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Carol Williams\",\n        \"age\": 42,\n        \"email\": \"carol.williams@example.com\",\n        \"is_active\": true,\n        \"address\": {\n            \"street\": \"789 Pine Rd\",\n            \"city\": \"Greenville\",\n            \"zip\": \"29607\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"name\": \"David Lee\",\n        \"age\": 32,\n        \"email\": \"david.lee@example.com\",\n        \"is_active\": false,\n        \"address\": {\n            \"street\": \"321 Birch Blvd\",\n            \"city\": \"Lakeside\",\n            \"zip\": \"90210\"\n        }\n    }\n]"
+				},
+				{
+					"name": "2.Get all users after DELETE request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin, Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "-1"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "692"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2b4-U2WBDSITRVIbcHLotTPlbJwBwnM\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jul 2025 03:49:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Alice Johnson\",\n        \"age\": 28,\n        \"email\": \"alice.johnson@example.com\",\n        \"is_active\": true,\n        \"address\": {\n            \"street\": \"123 Maple St\",\n            \"city\": \"Springfield\",\n            \"zip\": \"62704\"\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Bob Smith\",\n        \"age\": 35,\n        \"email\": \"bob.smith@example.com\",\n        \"is_active\": false,\n        \"address\": {\n            \"street\": \"456 Oak Ave\",\n            \"city\": \"Riverside\",\n            \"zip\": \"92501\"\n        }\n    },\n    {\n        \"id\": 4,\n        \"name\": \"David Lee\",\n        \"age\": 32,\n        \"email\": \"david.lee@example.com\",\n        \"is_active\": false,\n        \"address\": {\n            \"street\": \"321 Birch Blvd\",\n            \"city\": \"Lakeside\",\n            \"zip\": \"90210\"\n        }\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "3.Get a non-existing user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"999"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "3.Get a non-existing user",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"999"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin, Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "-1"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jul 2025 03:46:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "4.Create a new user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 4,\r\n  \"name\": \"David Lee\",\r\n  \"age\": 30,\r\n  \"email\": \"david.lee@example.com\",\r\n  \"is_active\": true,\r\n  \"address\": {\r\n    \"street\": \"321 Birch Blvd\",\r\n    \"city\": \"Lakeside\",\r\n    \"zip\": \"90210\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "4.Create a new user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 4,\r\n  \"name\": \"David Lee\",\r\n  \"age\": 30,\r\n  \"email\": \"david.lee@example.com\",\r\n  \"is_active\": true,\r\n  \"address\": {\r\n    \"street\": \"321 Birch Blvd\",\r\n    \"city\": \"Lakeside\",\r\n    \"zip\": \"90210\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "tinyhttp"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, HEAD, PUT, PATCH, POST, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "content-type"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 26 Jul 2025 11:58:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Content-Length",
+							"value": "201"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"name\": \"David Lee\",\n    \"age\": 30,\n    \"email\": \"david.lee@example.com\",\n    \"is_active\": true,\n    \"address\": {\n        \"street\": \"321 Birch Blvd\",\n        \"city\": \"Lakeside\",\n        \"zip\": \"90210\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "5.Edit/Update an existing user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"4\",\r\n  \"name\": \"David Lee\",\r\n  \"age\": 32,\r\n  \"email\": \"david.lee@example.com\",\r\n  \"is_active\": false,\r\n  \"address\": {\r\n    \"street\": \"321 Birch Blvd\",\r\n    \"city\": \"Lakeside\",\r\n    \"zip\": \"90210\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"4"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "5.Edit/Update an existing user",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 4,\r\n  \"name\": \"David Lee\",\r\n  \"age\": 32,\r\n  \"email\": \"david.lee@example.com\",\r\n  \"is_active\": false,\r\n  \"address\": {\r\n    \"street\": \"321 Birch Blvd\",\r\n    \"city\": \"Lakeside\",\r\n    \"zip\": \"90210\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin, Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "-1"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "202"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"ca-V12RuyHmhT+QcKovRuo1EVE8XLc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jul 2025 03:47:32 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"name\": \"David Lee\",\n    \"age\": 32,\n    \"email\": \"david.lee@example.com\",\n    \"is_active\": false,\n    \"address\": {\n        \"street\": \"321 Birch Blvd\",\n        \"city\": \"Lakeside\",\n        \"zip\": \"90210\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "6.Delete the existing user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "6.Delete the existing user",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin, Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "-1"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jul 2025 03:48:58 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "7.Delete a non-existing user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/29",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"29"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "7.Delete a non-existing user",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 4,\r\n  \"name\": \"David Lee\",\r\n  \"age\": 30,\r\n  \"email\": \"david.lee@example.com\",\r\n  \"is_active\": true,\r\n  \"address\": {\r\n    \"street\": \"321 Birch Blvd\",\r\n    \"city\": \"Lakeside\",\r\n    \"zip\": \"90210\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"29"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin, Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "-1"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jul 2025 03:50:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		}
+	]
+}

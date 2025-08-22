@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "3d2d1cb6-b0a0-43dc-8bc7-1e782c836733",
+		"name": "04.Execution Sequence",
+		"description": "This collection is designed to **practice and verify the execution sequence** of scripts at different levels in Postman — Collection, Folder, and Request — by using `console.log` statements.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23846288",
+		"_collection_link": "https://speeding-escape-891515.postman.co/workspace/API-testing-with-Postman---Prac~1ee97430-877e-4c34-a2f4-cdba9b060fc6/collection/23846288-3d2d1cb6-b0a0-43dc-8bc7-1e782c836733?action=share&source=collection_link&creator=23846288"
+	},
+	"item": [
+		{
+			"name": "New Folder",
+			"item": [
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Pre-request script at request.\")"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Post-response script (Test script in old version) at request.\")"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"console.log(\"Pre-request script at folder level.\")"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"console.log(\"Post-response script (Test script in old version) at folder level.\")"
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(\"Pre-request script at collection level.\")"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(\"Post-response script (Test script in old version) at collection level.\")"
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "age": 28,
+      "email": "alice.johnson@example.com",
+      "is_active": true,
+      "address": {
+        "street": "123 Maple St",
+        "city": "Springfield",
+        "zip": "62704"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "age": 35,
+      "email": "bob.smith@example.com",
+      "is_active": false,
+      "address": {
+        "street": "456 Oak Ave",
+        "city": "Riverside",
+        "zip": "92501"
+      }
+    },
+    {
+      "id": 4,
+      "name": "David Lee",
+      "age": 32,
+      "email": "david.lee@example.com",
+      "is_active": false,
+      "address": {
+        "street": "321 Birch Blvd",
+        "city": "Lakeside",
+        "zip": "90210"
+      }
+    }
+  ]
+}

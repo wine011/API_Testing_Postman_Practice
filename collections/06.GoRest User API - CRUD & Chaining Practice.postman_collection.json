@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "444eef23-ce51-422b-a5bc-c2073e33f0da",
+		"name": "06.GoRest User API - CRUD & Chaining Practice",
+		"description": "This collection demonstrates **end-to-end API testing and chaining** using the [GoRest public API](https://gorest.co.in/).\n\nIt includes:\n\n- **Full CRUD operations** on the `/users` endpoint:\n    \n    - Create user (POST)\n        \n    - Get single user & validate details (GET)\n        \n    - Update user information (PUT)\n        \n    - Delete user (DELETE)\n        \n- **Pre-request scripts** for generating dynamic usernames and emails\n    \n- **Environment variables** for:\n    \n    - `baseUrl`\n        \n    - `token` (Bearer token for authorization)\n        \n    - `userId`, `name_env`, `email_env` (dynamic variables for chaining)\n        \n- **Post-response tests** for:\n    \n    - Status code validation\n        \n    - Header validation\n        \n    - JSON field and schema validation\n        \n    - Response time checks\n        \n- **API chaining workflow** where the created user’s `id` is reused in GET, PUT, and DELETE requests.\n    \n- **Cleanup step** using `unset()` to remove runtime environment variables after execution.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23846288",
+		"_collection_link": "https://speeding-escape-891515.postman.co/workspace/API-testing-with-Postman---Prac~1ee97430-877e-4c34-a2f4-cdba9b060fc6/collection/23846288-444eef23-ce51-422b-a5bc-c2073e33f0da?action=share&source=collection_link&creator=23846288"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Set base URL for API requests",
+							"pm.environment.set(\"base_url\", \"https://gorest.co.in/public/v2\");",
+							"",
+							"// Generate a random username",
+							"const random = Math.random().toString(36).substring(2);",
+							"const username = `user_${random}`;  // used ` instead of + to avoid string concatenation issues",
+							"",
+							"// Set user email based on the generated username",
+							"const user_email = `${username}@example.com`;",
+							"",
+							"// Set environment variables for user data",
+							"pm.environment.set(\"name_env\", username);",
+							"pm.environment.set(\"email_env\", user_email);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST /users - Status code should be 201.\", () => {",
+							"    pm.response.to.have.status(201); ",
+							"});",
+							"",
+							"pm.test(\"Response time should be below 2000ms.\", () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header should be application/json\", () => {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"let schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"name\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"gender\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"email\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"status\": {",
+							"            \"type\": \"string\",",
+							"        }",
+							"    },",
+							"    \"required\": [",
+							"        \"name\",",
+							"        \"email\",",
+							"    ]",
+							"};",
+							"",
+							"pm.test(\"Schema is valid.\", () => {",
+							"    pm.expect(jsonData).to.be.jsonSchema(schema);",
+							"});",
+							"",
+							"pm.environment.set(\"userId\", jsonData.id);",
+							"",
+							"console.log(\"saved userId:\", pm.environment.get(\"userId\"));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"{{name_env}}\",\n    \"gender\" : \"male\",\n    \"email\" : \"{{email_env}}\",\n    \"status\" : \"active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(`GET /users/${pm.environment.get(\"userId\")} - Verify status code is 200`, () => {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"pm.test(\"Check that response time is below 2000ms\", () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); ",
+							"});",
+							"",
+							"pm.test(\"Ensure Content-Type header is application/json\", () => {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"pm.test(`GET /users/${pm.environment.get(\"userId\")} - Validate user data structure`, () => {",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('name'); ",
+							"    pm.expect(jsonData).to.have.property('email');",
+							"});",
+							"",
+							"let schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"name\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"gender\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"email\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"status\": {",
+							"            \"type\": \"string\",",
+							"        }",
+							"    },",
+							"    \"required\": [",
+							"        \"name\",",
+							"        \"email\",",
+							"    ]",
+							"};",
+							"",
+							"pm.test(\"Response matches expected user schema\", () => {",
+							"    pm.expect(jsonData).to.be.jsonSchema(schema);",
+							"});",
+							"",
+							"pm.test(\"Confirm User ID matches response and environment variable\", () => {",
+							"    pm.expect(jsonData.id).to.eql(Number(pm.environment.get(\"userId\")));",
+							"});",
+							"",
+							"pm.test(\"Verify Name and Email match environment variables\", () => {",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"name_env\"));",
+							"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email_env\"));",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/{{userId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(`PUT /users/${pm.environment.get(\"userId\")} - Status code should be 200.`, () => {",
+							"    pm.response.to.have.status(200); ",
+							"});",
+							"",
+							"pm.test(\"Response time should be below 2000ms.\", () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header should be application/json\", () => {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"let schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"name\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"gender\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"email\": {",
+							"            \"type\": \"string\",",
+							"        },",
+							"        \"status\": {",
+							"            \"type\": \"string\",",
+							"        }",
+							"    },",
+							"    \"required\": [",
+							"        \"name\",",
+							"        \"email\",",
+							"    ]",
+							"};",
+							"",
+							"pm.test(\"Schema is valid.\", () => {",
+							"    pm.expect(jsonData).to.be.jsonSchema(schema);",
+							"});",
+							"",
+							"pm.test(\"Updated status should be 'inactive'.\", () => {",
+							"    pm.expect(jsonData.status).to.eql(\"inactive\");",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"{{name_env}}\",\n    \"gender\" : \"male\",\n    \"email\" : \"{{email_env}}\",\n    \"status\" : \"inactive\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/users/{{userId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(`DELETE /users/${pm.environment.get(\"userId\")} - Status code should be 204.`, () => {",
+							"    pm.expect(pm.response.code).to.equal(204);",
+							"});",
+							"",
+							"pm.test(\"Response time should be below 1000ms.\", () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"// Content-Type header check is not applicable for 204 No Content responses",
+							"pm.test(\"Content-Type header validation for non-204\", () => {",
+							"  if (pm.response.code !== 204) {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"  }",
+							"});",
+							"",
+							"pm.environment.unset(\"base_url\");",
+							"pm.environment.unset(\"name_env\");",
+							"pm.environment.unset(\"email_env\");",
+							"pm.environment.unset(\"userId\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/{{userId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "6722d122219dec342edd6685ede3997db280e94976af8c76a512a1809cd76006",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.environment.set(\"base_url\", \"https://gorest.co.in/public/v2\")"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

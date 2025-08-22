@@ -1,0 +1,1 @@
+Without file type or size validation, if no file is provided in the request, multer will likely return a 400 Bad Request error or a similar error code, possibly with a message indicating that the file is missing. The exact error and status code might depend on the specific version of multer and how it's configured.

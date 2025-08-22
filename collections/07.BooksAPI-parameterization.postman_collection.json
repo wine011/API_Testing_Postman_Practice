@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "f6fb042d-3bee-4e11-a438-3df198745c0d",
+		"name": "07.BooksAPI-parameterization",
+		"description": "[https://simple-books-api.click/api-clients/](https://simple-books-api.click/api-clients/) is not working anymore.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23846288",
+		"_collection_link": "https://speeding-escape-891515.postman.co/workspace/API-testing-with-Postman---Prac~1ee97430-877e-4c34-a2f4-cdba9b060fc6/collection/23846288-f6fb042d-3bee-4e11-a438-3df198745c0d?action=share&source=collection_link&creator=23846288"
+	},
+	"item": [
+		{
+			"name": "Create token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"base_url\", \"https://simple-books-api.click\")"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"clientName\": \"Postman\",\n   \"clientEmail\": \"valentin@example.com\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.click/api-clients/",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"click"
+					],
+					"path": [
+						"api-clients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.click/books",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"click"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bookId\": 1,\n  \"customerName\": \"John\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.click/orders",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"click"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url\n",
+			"value": "https://simple-books-api.glitch.me",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "base_url",
+			"value": ""
+		}
+	]
+}
